@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyFollow2D : MonoBehaviour
 {
-    public float velocidade = 2f;
+    public float velocidade_inimigo = 2f;
     private Transform alvo;
     public ObjectPool pool;
 
@@ -30,13 +30,14 @@ public class EnemyFollow2D : MonoBehaviour
         if (alvo != null && !morrendo)
         {
             Vector2 direcao = ((Vector2)alvo.position - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(direcao * velocidade * Time.deltaTime);
+            transform.position += (Vector3)(direcao * velocidade_inimigo * Time.deltaTime);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D colisor)
+    // Método público que pode ser chamado pela magia
+    public void LevarDano()
     {
-        if (colisor.CompareTag("Player") && !morrendo)
+        if (!morrendo)
         {
             StartCoroutine(DesaparecerAposTempo());
         }
@@ -45,10 +46,8 @@ public class EnemyFollow2D : MonoBehaviour
     private IEnumerator DesaparecerAposTempo()
     {
         morrendo = true;
-
         animator.SetBool("isDead", true);
 
-        // Espera a animação atual rodar inteira
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         animator.SetBool("isDead", false);
