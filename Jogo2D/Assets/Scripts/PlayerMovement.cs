@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");   // W/S ou seta cima/baixo
 
         Vector2 movement = new Vector2(horizontal, vertical);
-        rb.MovePosition(rb.position + movement * velocidade * Time.fixedDeltaTime);
+
+        float mul = GameUpgrades.Instance ? GameUpgrades.Instance.playerSpeedMul : 1f;
+        rb.MovePosition(rb.position + movement * (velocidade * mul) * Time.fixedDeltaTime);
     }
 }
