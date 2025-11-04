@@ -12,8 +12,8 @@ TagManager:
   - Enemy
   - Water
   - UI
-  - 
-  - 
+  - World
+  - Enemy/Player
   - 
   - 
   - 
@@ -44,8 +44,8 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
-  - Light Layer 1
-  - Light Layer 2
+  - World
+  - Enemy/Player
   - Light Layer 3
   - Light Layer 4
   - Light Layer 5
