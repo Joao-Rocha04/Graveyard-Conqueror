@@ -330,12 +330,12 @@ MonoBehaviour:
   viewRadius: 2
   seed: 12345
   chunkPrefabs:
-  - {fileID: 3209197464153541488, guid: 255a58d20d179844aa4bbb45cddcab51, type: 3}
-  - {fileID: 8560941769699365620, guid: 38b30b22c16e1f640b421d4f4248ce24, type: 3}
-  - {fileID: 8315111324231766091, guid: 3e866b0447af49a4095ff3160fe31408, type: 3}
-  - {fileID: 8259977486754114268, guid: 2251cb16a695c4749afd76104a099f7b, type: 3}
-  - {fileID: 4705397082071384264, guid: 14c99ef2449c4f3459a808181f96b8d1, type: 3}
-  - {fileID: 8665146891832651386, guid: 64803f344e9ee044a8d45d913670adae, type: 3}
+  - {fileID: 4251858016195986246, guid: 03a100644e3c8d841929999e0d00bb2b, type: 3}
+  - {fileID: 6267696017014098080, guid: a96c79c4cfdc48a419e1306b0df4b24b, type: 3}
+  - {fileID: 6010490114064903028, guid: 6ce155465cdd43f4490e158d4c80441a, type: 3}
+  - {fileID: 5672676635615753562, guid: 659fed6e6fd6264489c6a0d879dc4eb0, type: 3}
+  - {fileID: 3442818448770309708, guid: 204f90af3b2bfa241ac654e29447b055, type: 3}
+  - {fileID: 8297705018608751994, guid: b931e7e9a0662a949857f052b8b3d739, type: 3}
 --- !u!4 &281755555
 Transform:
   m_ObjectHideFlags: 0
@@ -1983,7 +1983,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813608118}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -2048,7 +2048,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1813608124
 MonoBehaviour:
   m_ObjectHideFlags: 0
