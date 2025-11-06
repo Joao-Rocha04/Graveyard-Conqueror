@@ -1334,10 +1334,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1444875169421187130, guid: 633aaf24997f7f8498788c9ec24d1ab8, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1723645465842245720, guid: 633aaf24997f7f8498788c9ec24d1ab8, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1350,10 +1346,6 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1357823406}
-    - target: {fileID: 3323872127110830451, guid: 633aaf24997f7f8498788c9ec24d1ab8, type: 3}
-      propertyPath: velocidade_inimigo
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 7257533882212379597, guid: 633aaf24997f7f8498788c9ec24d1ab8, type: 3}
       propertyPath: m_Name
       value: Slime
@@ -1475,14 +1467,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1444875169421187130, guid: 4736140a6f03b4b459053004d898b44b, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323872127110830451, guid: 4736140a6f03b4b459053004d898b44b, type: 3}
-      propertyPath: velocidade_inimigo
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 7257533882212379597, guid: 4736140a6f03b4b459053004d898b44b, type: 3}
       propertyPath: m_Name
       value: Goblin

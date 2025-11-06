@@ -5,11 +5,13 @@ public class EnemyFollow2D : MonoBehaviour
 {
     public float velocidade_inimigo = 2f;
     private float base_velocidade;
+    private Rigidbody2D rb;
     private Transform alvo;
     public ObjectPool pool;
 
     [SerializeField] private Animator animator;
     private SpriteRenderer spriteRenderer;
+
     private bool morrendo = false;
 
     private void Awake()
@@ -18,6 +20,7 @@ public class EnemyFollow2D : MonoBehaviour
             animator = GetComponent<Animator>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
@@ -41,8 +44,8 @@ public class EnemyFollow2D : MonoBehaviour
         if (alvo != null && !morrendo)
         {
             Vector2 direcao = ((Vector2)alvo.position - (Vector2)transform.position).normalized;
-            transform.position += (Vector3)(direcao * velocidade_inimigo * Time.deltaTime);
-
+            // transform.position += (Vector3)(direcao * velocidade_inimigo * Time.deltaTime);
+            rb.linearVelocity = direcao * velocidade_inimigo * Time.deltaTime;
             if (spriteRenderer != null)
             {
                 spriteRenderer.flipX = direcao.x > 0f;
