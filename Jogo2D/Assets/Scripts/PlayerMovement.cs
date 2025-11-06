@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
         float mul = GameUpgrades.Instance ? GameUpgrades.Instance.playerSpeedMul : 1f;
         rb.linearVelocity = movement * (velocidade * mul);
+        Debug.Log("Velocidade do jogador: " + rb.linearVelocity);
 
         if (animator != null)
         {

@@ -845,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SunStrike
       objectReference: {fileID: 0}
+    - target: {fileID: 3093912366777606996, guid: c15315a9e48001c4198cf01856a80938, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3532765243157451991, guid: c15315a9e48001c4198cf01856a80938, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.44575882
@@ -1442,7 +1446,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 180712191}
   intervaloSpawn: 2
-  range: 5
+  rangeMax: 10
+  rangeMin: 3
 --- !u!4 &1237298511
 Transform:
   m_ObjectHideFlags: 0
@@ -2178,7 +2183,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
