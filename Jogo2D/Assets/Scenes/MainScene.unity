@@ -1442,7 +1442,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 180712191}
   intervaloSpawn: 2
-  range: 5
+  rangeMax: 10
+  rangeMin: 5
 --- !u!4 &1237298511
 Transform:
   m_ObjectHideFlags: 0
@@ -1930,7 +1931,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 9bef96bca50f1a048a84163a5d9f700f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.481
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2082,6 +2083,8 @@ MonoBehaviour:
   sunstrikeOffsetY: 1
   sunstrikePrefab: {fileID: 3093912366777606996, guid: c15315a9e48001c4198cf01856a80938, type: 3}
   intervaloDeAtaque: 1.5
+  sfxRaio: {fileID: 8300000, guid: 4e74d9d0cfcb12f418a87d64e7f12454, type: 3}
+  sfxVolume: 1
 --- !u!58 &1813608121
 CircleCollider2D:
   m_ObjectHideFlags: 0

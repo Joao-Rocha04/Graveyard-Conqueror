@@ -6,6 +6,9 @@ public class PlayerSunstrike : MonoBehaviour
     public float sunstrikeOffsetY = 2f;
     public GameObject sunstrikePrefab;
     public float intervaloDeAtaque = 1.5f; // tempo entre ataques (em segundos)
+    public AudioClip sfxRaio;
+    public float sfxVolume = 1f;
+
 
     private List<Collider2D> inimigosNoAlcance = new List<Collider2D>();
     private float tempoDesdeUltimoAtaque = 0f;
@@ -60,6 +63,8 @@ public class PlayerSunstrike : MonoBehaviour
         {
             Vector3 spawnPos = alvoMaisProximo.position + Vector3.up * sunstrikeOffsetY;
             Instantiate(sunstrikePrefab, spawnPos, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(sfxRaio, spawnPos, sfxVolume);
+
         }
     }
 }
