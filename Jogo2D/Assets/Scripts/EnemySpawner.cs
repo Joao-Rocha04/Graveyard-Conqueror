@@ -4,7 +4,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public ObjectPool enemyPool;
     public float intervaloSpawn = 2f;
-    public float range = 10f;
+    public float rangeMax = 10f;      // Raio máximo de spawn
+    public float rangeMin = 5f;       // Raio mínimo de spawn (donut)
 
     private Transform jogadorTransform;
 
@@ -51,9 +52,17 @@ public class EnemySpawner : MonoBehaviour
 
     Vector2 CalcularPosicaoSpawn()
     {
-        float x = Random.Range(-range, range);
-        float y = Random.Range(-range, range);
-        return (Vector2)jogadorTransform.position + new Vector2(x, y);
+        Vector2 centro = jogadorTransform.position;
+        Vector2 spawnPos;
+
+        // Gera posição aleatória em um anel (donut) com distância mínima e máxima
+        do
+        {
+            Vector2 offset = Random.insideUnitCircle * rangeMax;
+            spawnPos = centro + offset;
+        } while (Vector2.Distance(spawnPos, centro) < rangeMin);
+
+        return spawnPos;
     }
 
     void Update() { }
