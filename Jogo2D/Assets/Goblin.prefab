@@ -107,6 +107,9 @@ MonoBehaviour:
   velocidade_inimigo: 2
   pool: {fileID: 0}
   animator: {fileID: 0}
+  xpPrefab: {fileID: 5141576801825282076, guid: 9a137779689cdef4595eba2ea736fc1e, type: 3}
+  xpAmount: 1
+  xpSpreadRadius: 0.15
 --- !u!50 &1444875169421187130
 Rigidbody2D:
   serializedVersion: 5

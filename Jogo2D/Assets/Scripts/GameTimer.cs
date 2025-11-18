@@ -43,9 +43,8 @@ public class GameTimer : MonoBehaviour
             isFinished = true;
             UpdateTimerUI();
 
-            // Quando o tempo acaba, dispara o alerta de BOSS
             if (bossFightAlert != null)
-                bossFightAlert.ShowAlert();
+                bossFightAlert.ShowAlertAndPause(); // pausa, pisca 5s, some e volta
 
             return;
         }
