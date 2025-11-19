@@ -6,18 +6,14 @@ public class PlayerSunstrike : MonoBehaviour
     public float sunstrikeOffsetY = 2f;
     public GameObject sunstrikePrefab;
 
+    [Header("ConfiguraÃ§Ã£o da Arma")]
+    public float intervaloDeAtaque = 1.5f;   // tempo entre ataques
+    public int quantidadeProjeteis = 1;      // quantos inimigos base por ataque
+    public int dano = 1;                     // dano base por projÃ©til
 
-    [Header("Configuração da Arma")]
-    public float intervaloDeAtaque = 1.5f;   // tempo entre ataques (já existe)
-    public int quantidadeProjeteis = 1;      // quantos inimigos serão atingidos por ataque
-    public int dano = 1;                     // dano por projétil
-
-
-
-
+    [Header("Som do raio")]
     public AudioClip sfxRaio;
     public float sfxVolume = 1f;
-
 
     private List<Collider2D> inimigosNoAlcance = new List<Collider2D>();
     private float tempoDesdeUltimoAtaque = 0f;
@@ -51,14 +47,14 @@ public class PlayerSunstrike : MonoBehaviour
 
     void AtacarInimigoMaisProximo()
     {
-        // Remove inimigos que foram destruídos
+        // Remove inimigos que foram destruÃ­dos
         inimigosNoAlcance.RemoveAll(x => x == null);
 
         if (inimigosNoAlcance.Count == 0) return;
 
         Vector2 posJogador = transform.position;
 
-        // Ordena inimigos pela distância ao jogador
+        // Ordena inimigos pela distÃ¢ncia ao jogador
         List<Collider2D> alvosOrdenados = new List<Collider2D>(inimigosNoAlcance);
         alvosOrdenados.Sort((a, b) =>
         {
@@ -67,22 +63,39 @@ public class PlayerSunstrike : MonoBehaviour
             return da.CompareTo(db);
         });
 
-        // Ataca os N mais próximos
-        for (int i = 0; i < Mathf.Min(quantidadeProjeteis, alvosOrdenados.Count); i++)
+        // ===== aplica upgrades =====
+
+        // projÃ©teis extras do upgrade
+        int extraProj = (GameUpgrades.Instance != null)
+            ? GameUpgrades.Instance.sunstrikeExtraProjectiles
+            : 0;
+        int totalProjeteis = quantidadeProjeteis + extraProj;
+
+        int projeteisUsados = Mathf.Min(totalProjeteis, alvosOrdenados.Count);
+
+        // multiplicador de dano do upgrade
+        float dmgMul = (GameUpgrades.Instance != null)
+            ? GameUpgrades.Instance.sunstrikeDamageMul
+            : 1f;
+
+        for (int i = 0; i < projeteisUsados; i++)
         {
             Transform alvo = alvosOrdenados[i].transform;
             Vector3 spawnPos = alvo.position + Vector3.up * sunstrikeOffsetY;
 
             GameObject instancia = Instantiate(sunstrikePrefab, spawnPos, Quaternion.identity);
 
-            // Envia dano para o projétil (se script existir)
+            // Envia dano para o projÃ©til
             Sunstrike sun = instancia.GetComponent<Sunstrike>();
             if (sun != null)
             {
-                sun.dano = this.dano;
+                sun.dano = Mathf.RoundToInt(dano * dmgMul);
             }
 
-            AudioSource.PlayClipAtPoint(sfxRaio, spawnPos, sfxVolume);
+            if (sfxRaio != null)
+            {
+                AudioSource.PlayClipAtPoint(sfxRaio, spawnPos, sfxVolume);
+            }
         }
     }
 }

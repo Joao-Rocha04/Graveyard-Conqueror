@@ -76,8 +76,16 @@ public class XPOrb : MonoBehaviour
     {
         if (playerXP == null) return;
 
-        Debug.Log($"[XPOrb] Coletada! XP: {xpAmount}");
-        playerXP.AddXP(xpAmount);
+        // aplica multiplicador de XP vindo dos upgrades
+        float mul = (GameUpgrades.Instance != null)
+            ? GameUpgrades.Instance.xpGainMul
+            : 1f;
+
+        int finalXP = Mathf.RoundToInt(xpAmount * mul);
+
+        Debug.Log($"[XPOrb] Coletada! XP base: {xpAmount}, XP final: {finalXP}");
+        playerXP.AddXP(finalXP);
+
         Destroy(gameObject);
     }
 }
