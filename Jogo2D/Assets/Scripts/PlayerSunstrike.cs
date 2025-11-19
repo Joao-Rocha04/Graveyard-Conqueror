@@ -5,7 +5,16 @@ public class PlayerSunstrike : MonoBehaviour
 {
     public float sunstrikeOffsetY = 2f;
     public GameObject sunstrikePrefab;
-    public float intervaloDeAtaque = 1.5f; // tempo entre ataques (em segundos)
+
+
+    [Header("Configuração da Arma")]
+    public float intervaloDeAtaque = 1.5f;   // tempo entre ataques (já existe)
+    public int quantidadeProjeteis = 1;      // quantos inimigos serão atingidos por ataque
+    public int dano = 1;                     // dano por projétil
+
+
+
+
     public AudioClip sfxRaio;
     public float sfxVolume = 1f;
 
@@ -42,29 +51,38 @@ public class PlayerSunstrike : MonoBehaviour
 
     void AtacarInimigoMaisProximo()
     {
+        // Remove inimigos que foram destruídos
+        inimigosNoAlcance.RemoveAll(x => x == null);
+
         if (inimigosNoAlcance.Count == 0) return;
 
-        Transform alvoMaisProximo = null;
-        float menorDistancia = Mathf.Infinity;
         Vector2 posJogador = transform.position;
 
-        foreach (Collider2D col in inimigosNoAlcance)
+        // Ordena inimigos pela distância ao jogador
+        List<Collider2D> alvosOrdenados = new List<Collider2D>(inimigosNoAlcance);
+        alvosOrdenados.Sort((a, b) =>
         {
-            if (col == null) continue;
-            float dist = Vector2.Distance(posJogador, col.transform.position);
-            if (dist < menorDistancia)
+            float da = Vector2.Distance(posJogador, a.transform.position);
+            float db = Vector2.Distance(posJogador, b.transform.position);
+            return da.CompareTo(db);
+        });
+
+        // Ataca os N mais próximos
+        for (int i = 0; i < Mathf.Min(quantidadeProjeteis, alvosOrdenados.Count); i++)
+        {
+            Transform alvo = alvosOrdenados[i].transform;
+            Vector3 spawnPos = alvo.position + Vector3.up * sunstrikeOffsetY;
+
+            GameObject instancia = Instantiate(sunstrikePrefab, spawnPos, Quaternion.identity);
+
+            // Envia dano para o projétil (se script existir)
+            Sunstrike sun = instancia.GetComponent<Sunstrike>();
+            if (sun != null)
             {
-                menorDistancia = dist;
-                alvoMaisProximo = col.transform;
+                sun.dano = this.dano;
             }
-        }
 
-        if (alvoMaisProximo != null)
-        {
-            Vector3 spawnPos = alvoMaisProximo.position + Vector3.up * sunstrikeOffsetY;
-            Instantiate(sunstrikePrefab, spawnPos, Quaternion.identity);
             AudioSource.PlayClipAtPoint(sfxRaio, spawnPos, sfxVolume);
-
         }
     }
 }

@@ -62,7 +62,7 @@ public class EnemyFollow2D : MonoBehaviour
         }
     }
 
-    public void LevarDano()
+    public void LevarDano(int dano)
     {
         if (!morrendo)
             StartCoroutine(DesaparecerAposTempo());

@@ -7,7 +7,8 @@ public class Sunstrike : MonoBehaviour
 
     private Animator animator;
     private bool jaAtivou = false;
-
+    private PlayerSunstrike playerSunstrike;
+    public int dano;
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -36,7 +37,7 @@ public class Sunstrike : MonoBehaviour
             EnemyFollow2D inimigo = other.GetComponent<EnemyFollow2D>();
             if (inimigo != null)
             {
-                inimigo.LevarDano();
+                inimigo.LevarDano(dano);
             }
 
             // Aguarda a animação terminar antes de destruir
