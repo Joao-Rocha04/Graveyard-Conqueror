@@ -1,19 +1,21 @@
+Ôªøusing System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     public ObjectPool enemyPool;
     public float intervaloSpawn = 2f;
-    public float rangeMax = 10f;      // Raio m·ximo de spawn
-    public float rangeMin = 5f;       // Raio mÌnimo de spawn (donut)
+    public float rangeMax = 10f;      // Raio m√°ximo de spawn
+    public float rangeMin = 5f;       // Raio m√≠nimo de spawn (donut)
 
     private Transform jogadorTransform;
+    private GameTimer gameTimer;
 
     void Start()
     {
         if (enemyPool == null)
         {
-            Debug.LogError("[EnemySpawner] enemyPool n„o atribuÌdo.");
+            Debug.LogError("[EnemySpawner] enemyPool n√£o atribu√≠do.");
             return;
         }
 
@@ -24,11 +26,32 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            Debug.LogError("[EnemySpawner] Jogador com tag 'Player' n„o encontrado.");
+            Debug.LogError("[EnemySpawner] Jogador com tag 'Player' n√£o encontrado.");
+            return;
+        }
+        // spawnar conforme o timer do jogo
+
+
+        gameTimer = FindObjectOfType<GameTimer>();
+        if (gameTimer == null)
+        {
+            Debug.LogError("[EnemySpawner] GameTimer n√£o encontrado na cena.");
             return;
         }
 
-        InvokeRepeating(nameof(SpawnEnemy), 1f, intervaloSpawn);
+        StartCoroutine(SpawnComIntervaloDinamico());
+    }
+    private IEnumerator SpawnComIntervaloDinamico()
+    {
+        while (!gameTimer.IsFinished)
+        {
+            SpawnEnemy();
+
+            float t = Mathf.Clamp01(1f - (gameTimer.currentTime / gameTimer.totalTimeSeconds));
+            float intervaloAtual = Mathf.Lerp(3f, 0.05f, t); // De 3s at√© 0.2s conforme o tempo passa
+
+            yield return new WaitForSeconds(intervaloAtual);
+        }
     }
 
     void SpawnEnemy()
@@ -55,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
         Vector2 centro = jogadorTransform.position;
         Vector2 spawnPos;
 
-        // Gera posiÁ„o aleatÛria em um anel (donut) com dist‚ncia mÌnima e m·xima
+        // Gera posi√ß√£o aleat√≥ria em um anel (donut) com dist√¢ncia m√≠nima e m√°xima
         do
         {
             Vector2 offset = Random.insideUnitCircle * rangeMax;

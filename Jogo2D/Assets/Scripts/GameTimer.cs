@@ -16,9 +16,9 @@ public class GameTimer : MonoBehaviour
     public Color warningColor = Color.red;
     public float blinkSpeed = 8f;
 
-    private float currentTime;
-    private bool isWarning;
-    private bool isFinished;
+    public float currentTime;
+    public bool isWarning;
+    public bool isFinished;
 
     void Start()
     {
