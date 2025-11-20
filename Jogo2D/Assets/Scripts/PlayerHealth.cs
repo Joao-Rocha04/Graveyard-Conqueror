@@ -69,7 +69,12 @@ public class PlayerHealth : MonoBehaviour
         OnDeath?.Invoke();
         Debug.Log("Player morreu!");
 
-        // aqui depois vocês podem chamar Game Over / recarregar cena / menu etc.
+        // Tela de Game Over
+        if (GameEndUI.Instance != null)
+        {
+            GameEndUI.Instance.ShowDefeat();
+        }
+
         // por enquanto não destruo o player pra poder ver a animação
         // Destroy(gameObject);
     }

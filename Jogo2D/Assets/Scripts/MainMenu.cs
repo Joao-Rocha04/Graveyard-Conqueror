@@ -2,34 +2,53 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    [Header("Referências")]
-    [Tooltip("Canvas que contém a UI do menu inicial (botão Jogar, título, etc.)")]
-    public GameObject menuCanvas;
+    [Header("Painéis do Menu")]
+    public GameObject menuRoot;            // MainMenuPanel
+    public GameObject instructionsPanel;   // InstructionsPanel
 
-    [Tooltip("Raiz de todos os objetos de gameplay (player, inimigos, HUD, etc.)")]
-    public GameObject gameplayRoot;
-
-    void Start()
+    void Awake()
     {
-        // Garantias básicas para não dar null reference
-        if (menuCanvas != null)
-            menuCanvas.SetActive(true);
+        if (menuRoot == null)
+            menuRoot = gameObject;
 
-        if (gameplayRoot != null)
-            gameplayRoot.SetActive(false);
+        // Começa com o menu visível e jogo pausado
+        menuRoot.SetActive(true);
+        if (instructionsPanel != null)
+            instructionsPanel.SetActive(false);
 
-        Time.timeScale = 0f; // jogo pausado enquanto o menu está aberto
+        Time.timeScale = 0f;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    // Chamado pelo botão "Jogar"
-    public void PlayGame()
+    // ------------ BOTÃO PLAY ------------
+    public void OnPlayClicked()
     {
-        if (menuCanvas != null)
-            menuCanvas.SetActive(false);
+        menuRoot.SetActive(false);
+        if (instructionsPanel != null)
+            instructionsPanel.SetActive(false);
 
-        if (gameplayRoot != null)
-            gameplayRoot.SetActive(true);
+        Time.timeScale = 1f;
+    }
 
-        Time.timeScale = 1f; // jogo roda normalmente
+    // ------------ BOTÃO INSTRUÇÕES ------------
+    public void OnInstructionsClicked()
+    {
+        instructionsPanel.SetActive(true);
+        menuRoot.SetActive(false);
+    }
+
+    // ------------ BOTÃO VOLTAR ------------    
+    public void OnBackFromInstructions()
+    {
+        instructionsPanel.SetActive(false);
+        menuRoot.SetActive(true);
+    }
+
+    // ------------ BOTÃO SAIR (OPCIONAL) ------------
+    public void OnQuitClicked()
+    {
+        Application.Quit();
     }
 }
