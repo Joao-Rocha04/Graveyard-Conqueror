@@ -8,7 +8,7 @@ public class BossHealth : MonoBehaviour
     public int maxHealth = 500;
     public int currentHealth;
 
-    [Header("Animação de morte")]
+    [Header("Animação de morte (opcional)")]
     public Animator animator;
     public string dieTriggerName = "Die";
 
@@ -64,7 +64,7 @@ public class BossHealth : MonoBehaviour
 
         Debug.Log("[BossHealth] Boss morreu!");
 
-        // animação de morte
+        // 1) dispara animação de morte
         if (animator != null && !string.IsNullOrEmpty(dieTriggerName))
         {
             animator.ResetTrigger("Attack1");
@@ -75,7 +75,7 @@ public class BossHealth : MonoBehaviour
             animator.SetTrigger(dieTriggerName);
         }
 
-        // desliga IA e dano
+        // 2) desliga comportamento e dano do boss
         if (bossBehavior != null)
             bossBehavior.enabled = false;
 
@@ -84,6 +84,13 @@ public class BossHealth : MonoBehaviour
 
         OnBossDeath?.Invoke();
 
-        // opcional: Destroy(gameObject, 2f);
-    }
+        // 3) Tela de VITÓRIA
+        if (GameEndUI.Instance != null)
+        {
+            GameEndUI.Instance.ShowVictory();
+        }
+
+        // 4) opcional: destruir depois de um tempo
+        // Destroy(gameObject, 2f);
+    }
 }

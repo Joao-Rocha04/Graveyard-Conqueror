@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1201abf64a9d37ed862b63893e8a09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   attackRange: 1.2
   stopBuffer: 0.1
   totalAttacks: 4
@@ -2279,7 +2279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad6d3c5808117c2ab214519557d68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 300
   currentHealth: 0
   animator: {fileID: 527626506}
   dieTriggerName: Die
@@ -2313,7 +2313,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2327,7 +2327,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5049015, y: 2.0496895}
+  m_Size: {x: 1.2, y: 2}
   m_EdgeRadius: 0
 --- !u!1001 &619020418
 PrefabInstance:
@@ -4363,7 +4363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63aafd40728bfd4287506e54918dab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTimeSeconds: 10
+  totalTimeSeconds: 300
   timerText: {fileID: 1843174794}
   bossFightAlert: {fileID: 1358479254}
   warningTimeSeconds: 30
@@ -5858,7 +5858,7 @@ MonoBehaviour:
   sunstrikePrefab: {fileID: 3093912366777606996, guid: c15315a9e48001c4198cf01856a80938, type: 3}
   intervaloDeAtaque: 1.5
   quantidadeProjeteis: 1
-  dano: 1
+  dano: 10
   sfxRaio: {fileID: 8300000, guid: 4e74d9d0cfcb12f418a87d64e7f12454, type: 3}
   sfxVolume: 1
 --- !u!58 &1813608121
@@ -6092,7 +6092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c635c66f1b6ccfc7c82c9a79af97d3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   dieTriggerName: Die
   scriptsToDisableOnDeath: []
