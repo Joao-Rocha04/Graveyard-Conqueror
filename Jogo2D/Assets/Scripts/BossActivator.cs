@@ -6,21 +6,20 @@ public class BossActivator : MonoBehaviour
     private BossBehavior boss;
     private Transform spawnPoint;
 
-    // UI da barra de vida do boss
     private GameObject bossHealthUI;
 
     private bool bossMovedToArena = false;
 
     void Awake()
     {
-        // Acha o GameTimer
+        // GameTimer
         gameTimer = FindFirstObjectByType<GameTimer>();
         if (gameTimer == null)
         {
             Debug.LogError("[BossActivator] Nenhum GameTimer encontrado na cena.");
         }
 
-        // Acha o Boss (qualquer objeto com BossBehavior)
+        // Boss
         boss = FindFirstObjectByType<BossBehavior>();
         if (boss == null)
         {
@@ -28,11 +27,11 @@ public class BossActivator : MonoBehaviour
         }
         else
         {
-            // Esconde o Boss fora da tela até a hora da luta
+            // esconde o boss fora da tela até a luta
             boss.transform.position = new Vector3(9999f, 9999f, 0f);
         }
 
-        // Acha o ponto de spawn pelo nome
+        // Ponto de spawn
         GameObject sp = GameObject.Find("BossSpawnPoint");
         if (sp != null)
         {
@@ -40,14 +39,14 @@ public class BossActivator : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[BossActivator] BossSpawnPoint não encontrado. Vai usar (0,0,0) como posição.");
+            Debug.LogWarning("[BossActivator] BossSpawnPoint não encontrado. Vai usar (0,0,0).");
         }
 
-        // Acha a barra de vida do boss pelo nome
-        bossHealthUI = GameObject.Find("BossHealthSlider");   // nome do GameObject da UI
+        // UI da vida do boss
+        bossHealthUI = GameObject.Find("BossHealthBar");
         if (bossHealthUI != null)
         {
-            // garante que começa desligada
+            // começa desativada via script
             bossHealthUI.SetActive(false);
         }
         else
@@ -61,20 +60,18 @@ public class BossActivator : MonoBehaviour
         if (bossMovedToArena) return;
         if (gameTimer == null || boss == null) return;
 
-        // Quando o timer terminar, traz o Boss e mostra a barra
         if (gameTimer.IsFinished)
         {
             Vector3 targetPos = spawnPoint != null ? spawnPoint.position : Vector3.zero;
             boss.transform.position = targetPos;
             bossMovedToArena = true;
 
-            // Ativa a barra de vida do boss
             if (bossHealthUI != null)
             {
                 bossHealthUI.SetActive(true);
             }
 
-            Debug.Log("[BossActivator] Boss movido para a arena e barra de vida ativada.");
+            Debug.Log("[BossActivator] Boss movido para arena e barra de vida ativada.");
         }
     }
 }

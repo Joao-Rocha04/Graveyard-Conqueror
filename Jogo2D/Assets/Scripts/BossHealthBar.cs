@@ -14,7 +14,6 @@ public class BossHealthBar : MonoBehaviour
 
     void Start()
     {
-        // acha o BossHealth na cena
         bossHealth = FindFirstObjectByType<BossHealth>();
 
         if (bossHealth == null)
@@ -24,11 +23,9 @@ public class BossHealthBar : MonoBehaviour
             return;
         }
 
-        // inicializa valores
         slider.maxValue = bossHealth.maxHealth;
         slider.value = bossHealth.currentHealth;
 
-        // inscreve no evento de mudança de vida
         bossHealth.OnHealthChanged += AtualizarBarra;
     }
 

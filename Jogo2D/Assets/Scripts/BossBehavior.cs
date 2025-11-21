@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossBehavior : MonoBehaviour
 {
     [Header("Movimento")]
-    public float speed = 2f;          // velocidade de corrida atrás do player
+    public float speed = 2f;          // velocidade correndo atrás do player
     public float attackRange = 1.2f;  // distância para começar a atacar
     public float stopBuffer = 0.1f;   // folga pra não ficar liga/desliga ataque
 
@@ -44,7 +44,6 @@ public class BossBehavior : MonoBehaviour
     {
         if (player == null)
         {
-            // tenta achar de novo se algo mudou
             GameObject p = GameObject.FindGameObjectWithTag("Player");
             if (p != null) player = p.transform;
             if (player == null) return;
@@ -56,23 +55,20 @@ public class BossBehavior : MonoBehaviour
         bool dentroDoAtaque = dist <= attackRange;
         float speedParam = 0f;
 
-        // ----------------- Movimento -----------------
+        // --------- Movimento até o player ---------
         if (!dentroDoAtaque)
         {
             Vector3 moveDir = dir.normalized;
             transform.position += moveDir * speed * Time.deltaTime;
-            speedParam = speed; // qualquer valor > 0 serve pro Animator
+            speedParam = speed;
         }
 
-        // ----------------- Flip do sprite -----------------
+        // --------- Flip do sprite ---------
         if (dir.x != 0f)
         {
             bool olhandoPraDireita = !(dir.x > 0f);
-
-            // se o sprite original já olha pra direita:
-            //  - quando queremos olhar pra direita, flipX = false
-            //  - quando queremos olhar pra esquerda, flipX = true
             bool flip;
+
             if (spriteFacesRight)
                 flip = !olhandoPraDireita;
             else
@@ -81,13 +77,13 @@ public class BossBehavior : MonoBehaviour
             sr.flipX = flip;
         }
 
-        // parámetro de movimento no Animator
+        // --------- Parâmetro de movimento no Animator ---------
         if (animator != null)
         {
             animator.SetFloat("Speed", dentroDoAtaque ? 0f : speedParam);
         }
 
-        // ----------------- Ataque -----------------
+        // --------- Ataque ---------
         if (dentroDoAtaque && Time.time >= lastAttackTime + attackCooldown)
         {
             DispararAtaqueAleatorio();
@@ -103,7 +99,7 @@ public class BossBehavior : MonoBehaviour
         int escolha = Random.Range(1, totalAttacks + 1);
         string triggerName = "Attack" + escolha;
 
-        // limpa triggers antigos pra evitar bagunça
+        // limpa triggers antigos
         animator.ResetTrigger("Attack1");
         animator.ResetTrigger("Attack2");
         animator.ResetTrigger("Attack3");
@@ -117,7 +113,6 @@ public class BossBehavior : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // só pra visualizar o range de ataque na Scene
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
